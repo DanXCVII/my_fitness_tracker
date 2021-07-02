@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:my_fitness_tracker/widgets/grouping_activity_type.dart';
 import 'package:my_fitness_tracker/widgets/heart_beat_summary.dart';
 import 'package:my_fitness_tracker/widgets/overview_tile.dart';
+import 'package:tuple/tuple.dart';
 
 void main() {
   runApp(MyApp());
@@ -85,14 +87,15 @@ class _MyHomePageState extends State<MyHomePage> {
         // in the middle of the parent.
         child: Container(
           width: 220,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
             children: <Widget>[
               GeneralInfo("Max Mustermann", 84, 1.93, 24),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Text("weekly summary"),
+                child: Text(
+                  "weekly summary",
+                  style: TextStyle(fontSize: 12),
+                ),
               ),
               WeeklySummary(
                 8000,
@@ -102,32 +105,76 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text("All Activities"),
+                child: Text(
+                  "All Activities",
+                  style: TextStyle(fontSize: 12),
+                ),
               ),
               Container(
-                  decoration: BoxDecoration(
-                    color: Color(0xff2E2C3A),
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        offset: Offset(1, 1),
-                        blurRadius: 1,
-                        spreadRadius: 0.5,
-                        color: Colors.black26,
-                      )
-                    ],
+                decoration: BoxDecoration(
+                  color: Color(0xff2E2C3A),
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(1, 1),
+                      blurRadius: 1,
+                      spreadRadius: 0.5,
+                      color: Colors.black26,
+                    )
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: HeartBeatSummary(
+                    Duration(seconds: 300),
+                    Duration(seconds: 500),
+                    Duration(seconds: 800),
+                    Duration(seconds: 600),
+                    Duration(seconds: 200),
+                    Duration(seconds: 2400),
+                    // change to device width
+                    150,
                   ),
-                  child: Padding(
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Grouping",
+                  style: TextStyle(fontSize: 12),
+                ),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: Color(0xff2E2C3A),
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(1, 1),
+                      blurRadius: 1,
+                      spreadRadius: 0.5,
+                      color: Colors.black26,
+                    )
+                  ],
+                ),
+                child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: HeartBeatSummary(
-                      Duration(seconds: 300),
-                      Duration(seconds: 500),
-                      Duration(seconds: 800),
-                      Duration(seconds: 600),
-                      Duration(seconds: 200),
-                      Duration(seconds: 2400),
-                    ),
-                  ))
+                    child: GroupingActivityType(
+                      [
+                        Tuple3<String, Color, int>(
+                          "images/fire.png",
+                          Colors.blue,
+                          5,
+                        ),
+                        Tuple3<String, Color, int>(
+                          "images/fire.png",
+                          Colors.red,
+                          3,
+                        )
+                      ],
+                      170,
+                    )),
+              ),
             ],
           ),
         ),

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -8,6 +10,7 @@ class HeartBeatSummary extends StatelessWidget {
   final Duration durationZoneFour;
   final Duration durationZoneFive;
   final Duration totalDuration;
+  final double width;
 
   const HeartBeatSummary(
     this.durationZoneOne,
@@ -15,26 +18,73 @@ class HeartBeatSummary extends StatelessWidget {
     this.durationZoneThree,
     this.durationZoneFour,
     this.durationZoneFive,
-    this.totalDuration, {
+    this.totalDuration,
+    this.width, {
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          HeartBeatItem(5, Color(0xffE30000), Color(0xffE30000),
-              durationZoneFive, totalDuration, 200),
-          HeartBeatItem(4, Color(0xffFFCA0D), Color(0xffFFCA0D),
-              durationZoneFour, totalDuration, 200),
-          HeartBeatItem(3, Color(0xff5BFF22), Color(0xff5BFF22),
-              durationZoneThree, totalDuration, 200),
-          HeartBeatItem(2, Color(0xff4299FF), Color(0xff4299FF),
-              durationZoneTwo, totalDuration, 200),
-          HeartBeatItem(1, Color(0xffB7B7B7), Color(0xffB7B7B7),
-              durationZoneOne, totalDuration, 200),
-        ],
+    int maxDuration = [
+      durationZoneOne.inSeconds,
+      durationZoneTwo.inSeconds,
+      durationZoneThree.inSeconds,
+      durationZoneFour.inSeconds,
+      durationZoneFive.inSeconds,
+    ].reduce(max);
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(3),
+      child: Container(
+        child: Column(
+          children: [
+            HeartBeatItem(
+              5,
+              Color(0xffE30000),
+              Color(0xffE30000),
+              durationZoneFive,
+              totalDuration,
+              width,
+              maxDuration,
+            ),
+            HeartBeatItem(
+              4,
+              Color(0xffFFCA0D),
+              Color(0xffFFCA0D),
+              durationZoneFour,
+              totalDuration,
+              width,
+              maxDuration,
+            ),
+            HeartBeatItem(
+              3,
+              Color(0xff5BFF22),
+              Color(0xff5BFF22),
+              durationZoneThree,
+              totalDuration,
+              width,
+              maxDuration,
+            ),
+            HeartBeatItem(
+              2,
+              Color(0xff4299FF),
+              Color(0xff4299FF),
+              durationZoneTwo,
+              totalDuration,
+              width,
+              maxDuration,
+            ),
+            HeartBeatItem(
+              1,
+              Color(0xffB7B7B7),
+              Color(0xffB7B7B7),
+              durationZoneOne,
+              totalDuration,
+              width,
+              maxDuration,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -47,6 +97,7 @@ class HeartBeatItem extends StatelessWidget {
   final Duration totalDuration;
   final Duration zoneDuration;
   final double width;
+  final int maxDuration;
 
   const HeartBeatItem(
     this.number,
@@ -54,7 +105,8 @@ class HeartBeatItem extends StatelessWidget {
     this.colorTwo,
     this.zoneDuration,
     this.totalDuration,
-    this.width, {
+    this.width,
+    this.maxDuration, {
     Key? key,
   }) : super(key: key);
 
@@ -82,17 +134,30 @@ class HeartBeatItem extends StatelessWidget {
           curve: Curves.easeInOut,
           tween: Tween<double>(
               begin: 10,
-              end: width * (zoneDuration.inSeconds / totalDuration.inSeconds)),
-          builder: (_, double animatedSize, myChild) => Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(colors: [colorOne, colorTwo]),
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(10),
-                  bottomRight: Radius.circular(10),
-                )),
-            // duration: Duration(milliseconds: 200),
-            height: 16,
-            width: animatedSize,
+              end: width * (zoneDuration.inSeconds / maxDuration*0.75)),
+          builder: (_, double animatedSize, myChild) => Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(colors: [colorOne, colorTwo]),
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
+                    )),
+                // duration: Duration(milliseconds: 200),
+                height: 16,
+                width: animatedSize,
+              ),
+              Container(
+                width: 8,
+              ),
+              Container(
+                height: 1,
+                width: width - animatedSize,
+                color: Colors.grey,
+              ),
+            ],
           ),
         ),
         Spacer(),
