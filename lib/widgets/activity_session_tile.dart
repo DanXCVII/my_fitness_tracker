@@ -1,0 +1,120 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:my_fitness_tracker/models/activity.dart';
+import 'package:my_fitness_tracker/utility.dart';
+
+class ActivitySessionTile extends StatelessWidget {
+  final Activity activity;
+  final double width;
+
+  const ActivitySessionTile(
+    this.activity,
+    this.width, {
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 150,
+      decoration: BoxDecoration(
+        color: Color(0xff2E2C3A),
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            offset: Offset(1, 1),
+            blurRadius: 1,
+            spreadRadius: 0.5,
+            color: Colors.black26,
+          )
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            Container(
+                height: 30,
+                width: 30,
+                decoration: BoxDecoration(shape: BoxShape.circle),
+                child: Image.asset(
+                    "images/fire.png") //Image.asset(activity.imagePath),
+                ),
+            Container(width: 10),
+            Container(
+              height: 70,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: width - 70,
+                    child: Row(
+                      children: [
+                        Text(
+                          activity.name,
+                          style: TextStyle(fontSize: 12),
+                        ),
+                        Spacer(),
+                        Text(
+                          getWeekday(activity.time.day),
+                          style: TextStyle(color: Colors.grey, fontSize: 10),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Text(
+                    activity.description,
+                    style: TextStyle(color: Colors.grey, fontSize: 10),
+                  ),
+                  Spacer(),
+                  Wrap(
+                    children: []
+                      ..addAll((activity.activityGroups
+                            ..addAll(activity.connectedExercises))
+                          .map(
+                            (e) => Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: Container(
+                                height: 12,
+                                width: 12,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: e.item2,
+                                ),
+                                child: Image.asset("images/fire.png",
+                                    fit: BoxFit
+                                        .contain), //Image.asset(e.item3, fit: BoxFit.contain),
+                              ),
+                            ),
+                          )
+                          .toList())
+                      ..add(
+                        Container(
+                          decoration: BoxDecoration(
+                              color: Colors.amber,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 15,
+                                height: 15,
+                                child: Padding(
+                                  padding: EdgeInsets.all(2),
+                                  child: Image.asset("images/fire.png"),
+                                ),
+                              ),
+                              Text(activity.burnedCalories.toString()),
+                            ],
+                          ),
+                        ),
+                      ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}

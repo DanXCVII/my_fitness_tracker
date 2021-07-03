@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_fitness_tracker/models/activity.dart';
+import 'package:my_fitness_tracker/widgets/activity_session_tile.dart';
 import 'package:my_fitness_tracker/widgets/grouping_activity_type.dart';
 import 'package:my_fitness_tracker/widgets/heart_beat_summary.dart';
 import 'package:my_fitness_tracker/widgets/overview_tile.dart';
@@ -53,6 +55,9 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
+const double sidePadding = 12;
+const double textPadding = 22;
+
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
@@ -77,113 +82,142 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       backgroundColor: Color(0xff1B1A22),
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title!),
-      ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: Container(
-          width: 220,
+          // width: 220,
           child: ListView(
             children: <Widget>[
-              GeneralInfo("Max Mustermann", 84, 1.93, 24),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                padding: const EdgeInsets.fromLTRB(sidePadding, 16, sidePadding, 0),
+                child: GeneralInfo("Max Mustermann", 84, 1.93, 24),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.fromLTRB(textPadding, sidePadding, 0, 0),
                 child: Text(
                   "weekly summary",
-                  style: TextStyle(fontSize: 12),
+                  style: TextStyle(fontSize: 20),
                 ),
-              ),
-              WeeklySummary(
-                8000,
-                11,
-                Duration(hours: 10, minutes: 00),
-                143,
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding:
+                    const EdgeInsets.fromLTRB(sidePadding, sidePadding, 0, 0),
+                child: WeeklySummary(8000, 11, Duration(hours: 10, minutes: 00),
+                    143, MediaQuery.of(context).size.width - 16),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.fromLTRB(textPadding, sidePadding, 0, 0),
                 child: Text(
                   "All Activities",
-                  style: TextStyle(fontSize: 12),
+                  style: TextStyle(fontSize: 18),
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Color(0xff2E2C3A),
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: Offset(1, 1),
-                      blurRadius: 1,
-                      spreadRadius: 0.5,
-                      color: Colors.black26,
-                    )
-                  ],
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: HeartBeatSummary(
-                    Duration(seconds: 300),
-                    Duration(seconds: 500),
-                    Duration(seconds: 800),
-                    Duration(seconds: 600),
-                    Duration(seconds: 200),
-                    Duration(seconds: 2400),
-                    // change to device width
-                    150,
+              Padding(
+                padding:
+                    const EdgeInsets.fromLTRB(sidePadding, 8, sidePadding, 0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Color(0xff2E2C3A),
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        offset: Offset(1, 1),
+                        blurRadius: 1,
+                        spreadRadius: 0.5,
+                        color: Colors.black26,
+                      )
+                    ],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: HeartBeatSummary(
+                      Duration(seconds: 300),
+                      Duration(seconds: 500),
+                      Duration(seconds: 800),
+                      Duration(seconds: 600),
+                      Duration(seconds: 200),
+                      Duration(seconds: 2400),
+                      // change to device width
+                      MediaQuery.of(context).size.width - 24,
+                    ),
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding:
+                    const EdgeInsets.fromLTRB(textPadding, sidePadding, 0, 0),
                 child: Text(
                   "Grouping",
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.fromLTRB(sidePadding, 8, sidePadding, 0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Color(0xff2E2C3A),
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        offset: Offset(1, 1),
+                        blurRadius: 1,
+                        spreadRadius: 0.5,
+                        color: Colors.black26,
+                      )
+                    ],
+                  ),
+                  child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: GroupingActivityType(
+                        {
+                          Tuple3<String, Color, String>(
+                            "strength",
+                            Colors.blue,
+                            "images/fire.png",
+                          ): 4,
+                          Tuple3<String, Color, String>(
+                            "cardio",
+                            Colors.red,
+                            "images/fire.png",
+                          ): 7
+                        },
+                        MediaQuery.of(context).size.width - 24,
+                      )),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Past Workouts",
                   style: TextStyle(fontSize: 12),
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Color(0xff2E2C3A),
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: Offset(1, 1),
-                      blurRadius: 1,
-                      spreadRadius: 0.5,
-                      color: Colors.black26,
-                    )
-                  ],
-                ),
-                child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: GroupingActivityType(
-                      [
-                        Tuple3<String, Color, int>(
-                          "images/fire.png",
-                          Colors.blue,
-                          5,
-                        ),
-                        Tuple3<String, Color, int>(
-                          "images/fire.png",
-                          Colors.red,
-                          3,
-                        )
-                      ],
-                      170,
-                    )),
-              ),
+              ActivitySessionTile(
+                  Activity(
+                    "Strength Workout",
+                    "legs, back",
+                    "images/strength_icon.png",
+                    [
+                      Tuple3<String, Color, String>(
+                          "strength", Colors.blue, "images/strength_icon.png")
+                    ],
+                    [
+                      Tuple3<String, Color, String>("legs, back, workout 1",
+                          Colors.blue, "images/strength_icon.png")
+                    ],
+                    1057,
+                    Duration(seconds: 9572),
+                    DateTime(2022, 2, 2),
+                  ),
+                  232)
             ],
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
@@ -209,23 +243,26 @@ class GeneralInfo extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Padding(
-            padding: EdgeInsets.symmetric(vertical: 12),
-            child: Text(name, style: TextStyle(fontSize: 18))),
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Spacer(),
-            GeneralInfoItem(weight.toString(), "kg", "Weight"),
-            Spacer(),
-            Container(height: 15, width: 1, color: Colors.grey),
-            Spacer(),
-            GeneralInfoItem(height.toString(), "m", "Height"),
-            Spacer(),
-            Container(height: 15, width: 1, color: Colors.grey),
-            Spacer(),
-            GeneralInfoItem(age.toString(), "y. o.", "Age"),
-            Spacer(),
-          ],
+            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+            child: Text(name, style: TextStyle(fontSize: 26))),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Spacer(),
+              GeneralInfoItem(weight.toString(), "kg", "Weight"),
+              Spacer(),
+              Container(height: 15, width: 1, color: Colors.grey),
+              Spacer(),
+              GeneralInfoItem(height.toString(), "m", "Height"),
+              Spacer(),
+              Container(height: 15, width: 1, color: Colors.grey),
+              Spacer(),
+              GeneralInfoItem(age.toString(), "y. o.", "Age"),
+              Spacer(),
+            ],
+          ),
         ),
       ],
     );
@@ -255,13 +292,13 @@ class GeneralInfoItem extends StatelessWidget {
           children: [
             Text(
               value,
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 22),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 3, bottom: 3.0),
               child: Text(
                 unit,
-                style: TextStyle(fontSize: 8),
+                style: TextStyle(fontSize: 12),
               ),
             ),
           ],
@@ -271,7 +308,7 @@ class GeneralInfoItem extends StatelessWidget {
         ),
         Text(
           desc,
-          style: TextStyle(fontSize: 8),
+          style: TextStyle(fontSize: 12),
         ),
       ],
     );
@@ -283,12 +320,14 @@ class WeeklySummary extends StatelessWidget {
   final int amntSessions;
   final Duration activeTime;
   final int avgHeartRate;
+  final double width;
 
   const WeeklySummary(
     this.burnedCalories,
     this.amntSessions,
     this.activeTime,
-    this.avgHeartRate, {
+    this.avgHeartRate,
+    this.width, {
     Key? key,
   }) : super(key: key);
 
@@ -298,15 +337,15 @@ class WeeklySummary extends StatelessWidget {
       Row(
         children: [
           Container(
-              width: 100,
+              width: width / 2 - 10,
               child: OverviewTile(
                 seperateNumber(burnedCalories),
                 "kcal",
                 "images/fire.png",
               )),
-          Container(width: 8),
+          Container(width: 12),
           Container(
-              width: 100,
+              width: width / 2 - 10,
               child: OverviewTile(
                 amntSessions.toString(),
                 "sessions",
@@ -314,11 +353,11 @@ class WeeklySummary extends StatelessWidget {
               )),
         ],
       ),
-      Container(height: 8),
+      Container(height: 12),
       Row(
         children: [
           Container(
-            width: 100,
+            width: width / 2 - 10,
             child: OverviewTile(
               activeTime.inHours.toString() +
                   ":" +
@@ -330,9 +369,9 @@ class WeeklySummary extends StatelessWidget {
               "images/clock.png",
             ),
           ),
-          Container(width: 8),
+          Container(width: 12),
           Container(
-            width: 100,
+            width: width / 2 - 10,
             child: OverviewTile(
               avgHeartRate.toString(),
               "avg. bpm",

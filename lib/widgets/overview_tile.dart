@@ -16,7 +16,7 @@ class OverviewTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(8),
+      padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Color(0xff2E2C3A),
         borderRadius: BorderRadius.circular(10),
@@ -34,15 +34,15 @@ class OverviewTile extends StatelessWidget {
         children: [
           Image.asset(
             imageLocation,
-            width: 20,
-            height: 20,
+            width: 35,
+            height: 35,
             fit: BoxFit.contain,
           ),
           Spacer(),
-          Text(value, style: TextStyle(fontSize: 16)),
+          Text(value, style: TextStyle(fontSize: 26)),
           Padding(
             padding: const EdgeInsets.only(bottom: 2, left: 2),
-            child: Text(label, style: TextStyle(fontSize: 8)),
+            child: Text(label, style: TextStyle(fontSize: 14)),
           ),
         ],
       ),

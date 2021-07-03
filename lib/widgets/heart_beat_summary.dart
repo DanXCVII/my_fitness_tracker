@@ -34,7 +34,7 @@ class HeartBeatSummary extends StatelessWidget {
     ].reduce(max);
 
     return ClipRRect(
-      borderRadius: BorderRadius.circular(3),
+      borderRadius: BorderRadius.circular(6),
       child: Container(
         child: Column(
           children: [
@@ -115,17 +115,17 @@ class HeartBeatItem extends StatelessWidget {
     return Row(
       children: [
         Container(
-          width: 16,
-          height: 16,
+          width: 25,
+          height: 25,
           child: Center(
               child: Text(
             number.toString(),
-            style: TextStyle(fontSize: 12),
+            style: TextStyle(fontSize: 20),
           )),
           color: colorOne,
         ),
         Container(
-          height: 16,
+          height: 25,
           width: 1,
           color: Colors.grey,
         ),
@@ -134,7 +134,7 @@ class HeartBeatItem extends StatelessWidget {
           curve: Curves.easeInOut,
           tween: Tween<double>(
               begin: 10,
-              end: width * (zoneDuration.inSeconds / maxDuration*0.75)),
+              end: (width-110) * (zoneDuration.inSeconds / maxDuration*0.75)),
           builder: (_, double animatedSize, myChild) => Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -142,11 +142,11 @@ class HeartBeatItem extends StatelessWidget {
                 decoration: BoxDecoration(
                     gradient: LinearGradient(colors: [colorOne, colorTwo]),
                     borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(10),
-                      bottomRight: Radius.circular(10),
+                      topRight: Radius.circular(30),
+                      bottomRight: Radius.circular(30),
                     )),
                 // duration: Duration(milliseconds: 200),
-                height: 16,
+                height: 25,
                 width: animatedSize,
               ),
               Container(
@@ -154,7 +154,7 @@ class HeartBeatItem extends StatelessWidget {
               ),
               Container(
                 height: 1,
-                width: width - animatedSize,
+                width: width-110 - animatedSize,
                 color: Colors.grey,
               ),
             ],
@@ -165,7 +165,7 @@ class HeartBeatItem extends StatelessWidget {
           (zoneDuration.inSeconds / totalDuration.inSeconds * 100)
                   .toStringAsFixed(0) +
               "%",
-          style: TextStyle(fontSize: 12),
+          style: TextStyle(fontSize: 20),
         ),
       ],
     );
