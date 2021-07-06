@@ -30,15 +30,19 @@ class ActivitySessionTile extends StatelessWidget {
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(14.0),
         child: Row(
           children: [
             Container(
-                height: 30,
-                width: 30,
-                decoration: BoxDecoration(shape: BoxShape.circle),
-                child: Image.asset(
-                    "images/fire.png") //Image.asset(activity.imagePath),
+                height: 60,
+                width: 60,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle, color: Color(activity.color)),
+                child: Container(
+                  padding: EdgeInsets.all(8),
+                  child: Image.asset(
+                      "images/fire.png"),
+                ) //Image.asset(activity.imagePath),
                 ),
             Container(width: 10),
             Container(
@@ -47,24 +51,24 @@ class ActivitySessionTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    width: width - 70,
+                    width: width - 100,
                     child: Row(
                       children: [
                         Text(
                           activity.name,
-                          style: TextStyle(fontSize: 12),
+                          style: TextStyle(fontSize: 20),
                         ),
                         Spacer(),
                         Text(
                           getWeekday(activity.time.day),
-                          style: TextStyle(color: Colors.grey, fontSize: 10),
+                          style: TextStyle(color: Colors.grey, fontSize: 18),
                         ),
                       ],
                     ),
                   ),
                   Text(
                     activity.description,
-                    style: TextStyle(color: Colors.grey, fontSize: 10),
+                    style: TextStyle(color: Colors.grey, fontSize: 16),
                   ),
                   Spacer(),
                   Wrap(
@@ -75,15 +79,18 @@ class ActivitySessionTile extends StatelessWidget {
                             (e) => Padding(
                               padding: const EdgeInsets.only(right: 8.0),
                               child: Container(
-                                height: 12,
-                                width: 12,
+                                height: 18,
+                                width: 18,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: e.item2,
                                 ),
-                                child: Image.asset("images/fire.png",
-                                    fit: BoxFit
-                                        .contain), //Image.asset(e.item3, fit: BoxFit.contain),
+                                child: Container(
+                                  padding: EdgeInsets.all(2),
+                                  child: Image.asset("images/fire.png",
+                                      fit: BoxFit
+                                          .contain),
+                                ), //Image.asset(e.item3, fit: BoxFit.contain),
                               ),
                             ),
                           )
@@ -96,14 +103,15 @@ class ActivitySessionTile extends StatelessWidget {
                           child: Row(
                             children: [
                               Container(
-                                width: 15,
-                                height: 15,
+                                width: 18,
+                                height: 18,
                                 child: Padding(
                                   padding: EdgeInsets.all(2),
                                   child: Image.asset("images/fire.png"),
                                 ),
                               ),
                               Text(activity.burnedCalories.toString()),
+                              Container(width: 8)
                             ],
                           ),
                         ),

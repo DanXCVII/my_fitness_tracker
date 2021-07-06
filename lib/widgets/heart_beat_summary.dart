@@ -33,57 +33,74 @@ class HeartBeatSummary extends StatelessWidget {
       durationZoneFive.inSeconds,
     ].reduce(max);
 
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(6),
-      child: Container(
-        child: Column(
-          children: [
-            HeartBeatItem(
-              5,
-              Color(0xffE30000),
-              Color(0xffE30000),
-              durationZoneFive,
-              totalDuration,
-              width,
-              maxDuration,
+    return Container(
+      decoration: BoxDecoration(
+        color: Color(0xff2E2C3A),
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            offset: Offset(1, 1),
+            blurRadius: 1,
+            spreadRadius: 0.5,
+            color: Colors.black26,
+          )
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(6),
+          child: Container(
+            child: Column(
+              children: [
+                HeartBeatItem(
+                  5,
+                  Color(0xffE30000),
+                  Color(0xffE30000),
+                  durationZoneFive,
+                  totalDuration,
+                  width,
+                  maxDuration,
+                ),
+                HeartBeatItem(
+                  4,
+                  Color(0xffFFCA0D),
+                  Color(0xffFFCA0D),
+                  durationZoneFour,
+                  totalDuration,
+                  width,
+                  maxDuration,
+                ),
+                HeartBeatItem(
+                  3,
+                  Color(0xff5BFF22),
+                  Color(0xff5BFF22),
+                  durationZoneThree,
+                  totalDuration,
+                  width,
+                  maxDuration,
+                ),
+                HeartBeatItem(
+                  2,
+                  Color(0xff4299FF),
+                  Color(0xff4299FF),
+                  durationZoneTwo,
+                  totalDuration,
+                  width,
+                  maxDuration,
+                ),
+                HeartBeatItem(
+                  1,
+                  Color(0xffB7B7B7),
+                  Color(0xffB7B7B7),
+                  durationZoneOne,
+                  totalDuration,
+                  width,
+                  maxDuration,
+                ),
+              ],
             ),
-            HeartBeatItem(
-              4,
-              Color(0xffFFCA0D),
-              Color(0xffFFCA0D),
-              durationZoneFour,
-              totalDuration,
-              width,
-              maxDuration,
-            ),
-            HeartBeatItem(
-              3,
-              Color(0xff5BFF22),
-              Color(0xff5BFF22),
-              durationZoneThree,
-              totalDuration,
-              width,
-              maxDuration,
-            ),
-            HeartBeatItem(
-              2,
-              Color(0xff4299FF),
-              Color(0xff4299FF),
-              durationZoneTwo,
-              totalDuration,
-              width,
-              maxDuration,
-            ),
-            HeartBeatItem(
-              1,
-              Color(0xffB7B7B7),
-              Color(0xffB7B7B7),
-              durationZoneOne,
-              totalDuration,
-              width,
-              maxDuration,
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -134,7 +151,8 @@ class HeartBeatItem extends StatelessWidget {
           curve: Curves.easeInOut,
           tween: Tween<double>(
               begin: 10,
-              end: (width-110) * (zoneDuration.inSeconds / maxDuration*0.75)),
+              end: (width - 110) *
+                  (zoneDuration.inSeconds / maxDuration * 0.75)),
           builder: (_, double animatedSize, myChild) => Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -154,7 +172,7 @@ class HeartBeatItem extends StatelessWidget {
               ),
               Container(
                 height: 1,
-                width: width-110 - animatedSize,
+                width: width - 110 - animatedSize,
                 color: Colors.grey,
               ),
             ],

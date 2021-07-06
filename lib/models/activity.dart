@@ -14,6 +14,7 @@ class Activity extends Equatable {
   final Duration duration;
   final DateTime time;
   final double distance;
+  final int color;
 
   Activity(
     this.name,
@@ -23,7 +24,7 @@ class Activity extends Equatable {
     this.connectedExercises,
     this.burnedCalories,
     this.duration,
-    this.time, {
+    this.time, this.color, {
     this.distance = 0,
   });
 
@@ -38,5 +39,6 @@ class Activity extends Equatable {
         duration,
         time,
         distance,
+        color,
       ];
 }

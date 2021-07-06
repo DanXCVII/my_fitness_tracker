@@ -58,6 +58,8 @@ class MyHomePage extends StatefulWidget {
 const double sidePadding = 12;
 const double textPadding = 22;
 
+const double headerSize = 20;
+
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
@@ -90,15 +92,16 @@ class _MyHomePageState extends State<MyHomePage> {
           child: ListView(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.fromLTRB(sidePadding, 16, sidePadding, 0),
+                padding:
+                    const EdgeInsets.fromLTRB(sidePadding, 16, sidePadding, 0),
                 child: GeneralInfo("Max Mustermann", 84, 1.93, 24),
               ),
               Padding(
                 padding:
                     const EdgeInsets.fromLTRB(textPadding, sidePadding, 0, 0),
                 child: Text(
-                  "weekly summary",
-                  style: TextStyle(fontSize: 20),
+                  "Weekly Summary",
+                  style: TextStyle(fontSize: headerSize),
                 ),
               ),
               Padding(
@@ -112,38 +115,21 @@ class _MyHomePageState extends State<MyHomePage> {
                     const EdgeInsets.fromLTRB(textPadding, sidePadding, 0, 0),
                 child: Text(
                   "All Activities",
-                  style: TextStyle(fontSize: 18),
+                  style: TextStyle(fontSize: headerSize),
                 ),
               ),
               Padding(
                 padding:
                     const EdgeInsets.fromLTRB(sidePadding, 8, sidePadding, 0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Color(0xff2E2C3A),
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        offset: Offset(1, 1),
-                        blurRadius: 1,
-                        spreadRadius: 0.5,
-                        color: Colors.black26,
-                      )
-                    ],
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: HeartBeatSummary(
-                      Duration(seconds: 300),
-                      Duration(seconds: 500),
-                      Duration(seconds: 800),
-                      Duration(seconds: 600),
-                      Duration(seconds: 200),
-                      Duration(seconds: 2400),
-                      // change to device width
-                      MediaQuery.of(context).size.width - 24,
-                    ),
-                  ),
+                child: HeartBeatSummary(
+                  Duration(seconds: 300),
+                  Duration(seconds: 500),
+                  Duration(seconds: 800),
+                  Duration(seconds: 600),
+                  Duration(seconds: 200),
+                  Duration(seconds: 2400),
+                  // change to device width
+                  MediaQuery.of(context).size.width - 24,
                 ),
               ),
               Padding(
@@ -151,69 +137,57 @@ class _MyHomePageState extends State<MyHomePage> {
                     const EdgeInsets.fromLTRB(textPadding, sidePadding, 0, 0),
                 child: Text(
                   "Grouping",
-                  style: TextStyle(fontSize: 18),
+                  style: TextStyle(fontSize: headerSize),
                 ),
               ),
               Padding(
                 padding:
                     const EdgeInsets.fromLTRB(sidePadding, 8, sidePadding, 0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Color(0xff2E2C3A),
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        offset: Offset(1, 1),
-                        blurRadius: 1,
-                        spreadRadius: 0.5,
-                        color: Colors.black26,
-                      )
-                    ],
-                  ),
-                  child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: GroupingActivityType(
-                        {
-                          Tuple3<String, Color, String>(
-                            "strength",
-                            Colors.blue,
-                            "images/fire.png",
-                          ): 4,
-                          Tuple3<String, Color, String>(
-                            "cardio",
-                            Colors.red,
-                            "images/fire.png",
-                          ): 7
-                        },
-                        MediaQuery.of(context).size.width - 24,
-                      )),
+                child: GroupingActivityType(
+                  {
+                    Tuple3<String, Color, String>(
+                      "strength",
+                      Colors.blue,
+                      "images/fire.png",
+                    ): 4,
+                    Tuple3<String, Color, String>(
+                      "cardio",
+                      Colors.red,
+                      "images/fire.png",
+                    ): 7
+                  },
+                  MediaQuery.of(context).size.width - 24,
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.fromLTRB(textPadding, 8, 0, 0),
                 child: Text(
                   "Past Workouts",
-                  style: TextStyle(fontSize: 12),
+                  style: TextStyle(fontSize: headerSize),
                 ),
               ),
-              ActivitySessionTile(
-                  Activity(
-                    "Strength Workout",
-                    "legs, back",
-                    "images/strength_icon.png",
-                    [
-                      Tuple3<String, Color, String>(
-                          "strength", Colors.blue, "images/strength_icon.png")
-                    ],
-                    [
-                      Tuple3<String, Color, String>("legs, back, workout 1",
-                          Colors.blue, "images/strength_icon.png")
-                    ],
-                    1057,
-                    Duration(seconds: 9572),
-                    DateTime(2022, 2, 2),
-                  ),
-                  232)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(sidePadding, 8, sidePadding, 0),
+                child: ActivitySessionTile(
+                    Activity(
+                      "Strength Workout",
+                      "legs, back",
+                      "images/strength_icon.png",
+                      [
+                        Tuple3<String, Color, String>(
+                            "strength", Colors.blue, "images/strength_icon.png")
+                      ],
+                      [
+                        Tuple3<String, Color, String>("legs, back, workout 1",
+                            Colors.blue, "images/strength_icon.png")
+                      ],
+                      1057,
+                      Duration(seconds: 9572),
+                      DateTime(2022, 2, 2),
+                      0xff25BDFF,
+                    ),
+                    MediaQuery.of(context).size.width-(sidePadding*2)),
+              )
             ],
           ),
         ),
@@ -253,11 +227,11 @@ class GeneralInfo extends StatelessWidget {
               Spacer(),
               GeneralInfoItem(weight.toString(), "kg", "Weight"),
               Spacer(),
-              Container(height: 15, width: 1, color: Colors.grey),
+              Container(height: 25, width: 1, color: Colors.grey),
               Spacer(),
               GeneralInfoItem(height.toString(), "m", "Height"),
               Spacer(),
-              Container(height: 15, width: 1, color: Colors.grey),
+              Container(height: 25, width: 1, color: Colors.grey),
               Spacer(),
               GeneralInfoItem(age.toString(), "y. o.", "Age"),
               Spacer(),
