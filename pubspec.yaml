@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.3
   tuple: ^2.0.0
   equatable: ^2.0.3
+  fl_chart: ^0.36.2
 
 dev_dependencies:
   flutter_test:

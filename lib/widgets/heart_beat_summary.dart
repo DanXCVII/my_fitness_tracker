@@ -35,7 +35,7 @@ class HeartBeatSummary extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: Color(0xff2E2C3A),
+        color: Color(0xff1D1D1D),
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(

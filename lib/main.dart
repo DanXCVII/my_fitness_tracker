@@ -1,9 +1,13 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:my_fitness_tracker/models/activity.dart';
 import 'package:my_fitness_tracker/widgets/activity_session_tile.dart';
 import 'package:my_fitness_tracker/widgets/grouping_activity_type.dart';
 import 'package:my_fitness_tracker/widgets/heart_beat_summary.dart';
+import 'package:my_fitness_tracker/widgets/heart_rate_summary_short.dart';
 import 'package:my_fitness_tracker/widgets/overview_tile.dart';
+import 'package:my_fitness_tracker/widgets/time_summary_tile.dart';
 import 'package:tuple/tuple.dart';
 
 void main() {
@@ -83,7 +87,12 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      backgroundColor: Color(0xff1B1A22),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          print((2 * pi) * ((10 * 60 + 45) / (12 * 60)));
+        },
+      ),
+      backgroundColor: Color(0xff000000),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
@@ -104,11 +113,40 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: TextStyle(fontSize: headerSize),
                 ),
               ),
+              Row(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width / 2,
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(
+                          sidePadding, sidePadding, sidePadding/2, 0),
+                      child: HeartRateSummaryShort(
+                        57,
+                        100,
+                        150,
+                        MediaQuery.of(context).size.width / 2 - 15,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 2,
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(
+                          sidePadding / 2, sidePadding, sidePadding, 0),
+                      child: TimeSummaryTile(
+                          MediaQuery.of(context).size.width / 2 -
+                              (2 * sidePadding),
+                          DateTime(2021, 5, 10, 23, 45),
+                          Duration(minutes: 90)),
+                    ),
+                  ),
+                ],
+              ),
               Padding(
                 padding:
                     const EdgeInsets.fromLTRB(sidePadding, sidePadding, 0, 0),
                 child: WeeklySummary(8000, 11, Duration(hours: 10, minutes: 00),
-                    143, MediaQuery.of(context).size.width - 16),
+                    143, MediaQuery.of(context).size.width - sidePadding*2),
               ),
               Padding(
                 padding:
@@ -167,7 +205,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(sidePadding, 8, sidePadding, 0),
+                padding:
+                    const EdgeInsets.fromLTRB(sidePadding, 8, sidePadding, 0),
                 child: ActivitySessionTile(
                     Activity(
                       "Strength Workout",
@@ -186,7 +225,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       DateTime(2022, 2, 2),
                       0xff25BDFF,
                     ),
-                    MediaQuery.of(context).size.width-(sidePadding*2)),
+                    MediaQuery.of(context).size.width - (sidePadding * 2)),
               )
             ],
           ),
@@ -311,15 +350,15 @@ class WeeklySummary extends StatelessWidget {
       Row(
         children: [
           Container(
-              width: width / 2 - 10,
+              width: width / 2 - sidePadding/2,
               child: OverviewTile(
                 seperateNumber(burnedCalories),
                 "kcal",
                 "images/fire.png",
               )),
-          Container(width: 12),
+          Container(width: sidePadding),
           Container(
-              width: width / 2 - 10,
+              width: width / 2 - sidePadding/2,
               child: OverviewTile(
                 amntSessions.toString(),
                 "sessions",
@@ -327,11 +366,11 @@ class WeeklySummary extends StatelessWidget {
               )),
         ],
       ),
-      Container(height: 12),
+      Container(height: sidePadding),
       Row(
         children: [
           Container(
-            width: width / 2 - 10,
+            width: width / 2 - sidePadding/2,
             child: OverviewTile(
               activeTime.inHours.toString() +
                   ":" +
@@ -343,9 +382,9 @@ class WeeklySummary extends StatelessWidget {
               "images/clock.png",
             ),
           ),
-          Container(width: 12),
+          Container(width: sidePadding),
           Container(
-            width: width / 2 - 10,
+            width: width / 2 - sidePadding/2,
             child: OverviewTile(
               avgHeartRate.toString(),
               "avg. bpm",
