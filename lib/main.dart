@@ -2,11 +2,14 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:my_fitness_tracker/models/activity.dart';
+import 'package:my_fitness_tracker/utility.dart';
 import 'package:my_fitness_tracker/widgets/activity_session_tile.dart';
 import 'package:my_fitness_tracker/widgets/grouping_activity_type.dart';
 import 'package:my_fitness_tracker/widgets/heart_beat_summary.dart';
+import 'package:my_fitness_tracker/widgets/heart_rate_chart_summary.dart';
 import 'package:my_fitness_tracker/widgets/heart_rate_summary_short.dart';
 import 'package:my_fitness_tracker/widgets/overview_tile.dart';
+import 'package:my_fitness_tracker/widgets/session_amount_summary.dart';
 import 'package:my_fitness_tracker/widgets/time_summary_tile.dart';
 import 'package:tuple/tuple.dart';
 
@@ -89,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          print((2 * pi) * ((10 * 60 + 45) / (12 * 60)));
+          print(DateTime.parse("2021-06-08T19:48:28.000"));
         },
       ),
       backgroundColor: Color(0xff000000),
@@ -119,7 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     width: MediaQuery.of(context).size.width / 2,
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(
-                          sidePadding, sidePadding, sidePadding/2, 0),
+                          sidePadding, sidePadding, sidePadding / 2, 0),
                       child: HeartRateSummaryShort(
                         57,
                         100,
@@ -128,25 +131,97 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width / 2,
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(
-                          sidePadding / 2, sidePadding, sidePadding, 0),
-                      child: TimeSummaryTile(
-                          MediaQuery.of(context).size.width / 2 -
-                              (2 * sidePadding),
-                          DateTime(2021, 5, 10, 23, 45),
-                          Duration(minutes: 90)),
-                    ),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width / 2,
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(
+                              sidePadding / 2, sidePadding, sidePadding, 0),
+                          child: Container(
+                            padding: EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: Color(0xff1D1D1D),
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  offset: Offset(1, 1),
+                                  blurRadius: 1,
+                                  spreadRadius: 0.5,
+                                  color: Colors.black26,
+                                )
+                              ],
+                            ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Image.asset(
+                                  "images/fire.png",
+                                  width: 35,
+                                  height: 35,
+                                  fit: BoxFit.contain,
+                                ),
+                                Spacer(),
+                                Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      9623.toString(),
+                                      style: TextStyle(fontSize: 26),
+                                    ),
+                                    Text(
+                                      "16% fat",
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      bottom: 2, left: 2, top: 11),
+                                  child: Text("kcal",
+                                      style: TextStyle(fontSize: 14)),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width / 2,
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(
+                              sidePadding / 2, sidePadding, sidePadding, 0),
+                          child: TimeSummaryTile(
+                              MediaQuery.of(context).size.width / 2 -
+                                  (2 * sidePadding),
+                              DateTime(2021, 5, 10, 23, 45),
+                              Duration(minutes: 90)),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
               Padding(
-                padding:
-                    const EdgeInsets.fromLTRB(sidePadding, sidePadding, 0, 0),
+                padding: const EdgeInsets.fromLTRB(
+                    sidePadding, sidePadding, sidePadding, 0),
+                child: HeartRateChartSummary(
+                  MediaQuery.of(context).size.width - 2 * sidePadding,
+                  getHeartRateData(),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(
+                    sidePadding, sidePadding, sidePadding, 0),
+                child: SessionAmountSummary(
+                    MediaQuery.of(context).size.width - 2 * sidePadding),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(
+                    sidePadding, sidePadding, sidePadding, 0),
                 child: WeeklySummary(8000, 11, Duration(hours: 10, minutes: 00),
-                    143, MediaQuery.of(context).size.width - sidePadding*2),
+                    143, MediaQuery.of(context).size.width - sidePadding * 2),
               ),
               Padding(
                 padding:
@@ -220,6 +295,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         Tuple3<String, Color, String>("legs, back, workout 1",
                             Colors.blue, "images/strength_icon.png")
                       ],
+                      Tuple2([], []),
                       1057,
                       Duration(seconds: 9572),
                       DateTime(2022, 2, 2),
@@ -350,7 +426,7 @@ class WeeklySummary extends StatelessWidget {
       Row(
         children: [
           Container(
-              width: width / 2 - sidePadding/2,
+              width: width / 2 - sidePadding / 2,
               child: OverviewTile(
                 seperateNumber(burnedCalories),
                 "kcal",
@@ -358,7 +434,7 @@ class WeeklySummary extends StatelessWidget {
               )),
           Container(width: sidePadding),
           Container(
-              width: width / 2 - sidePadding/2,
+              width: width / 2 - sidePadding / 2,
               child: OverviewTile(
                 amntSessions.toString(),
                 "sessions",
@@ -370,7 +446,7 @@ class WeeklySummary extends StatelessWidget {
       Row(
         children: [
           Container(
-            width: width / 2 - sidePadding/2,
+            width: width / 2 - sidePadding / 2,
             child: OverviewTile(
               activeTime.inHours.toString() +
                   ":" +
@@ -384,7 +460,7 @@ class WeeklySummary extends StatelessWidget {
           ),
           Container(width: sidePadding),
           Container(
-            width: width / 2 - sidePadding/2,
+            width: width / 2 - sidePadding / 2,
             child: OverviewTile(
               avgHeartRate.toString(),
               "avg. bpm",

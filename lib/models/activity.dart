@@ -10,6 +10,7 @@ class Activity extends Equatable {
   final List<Tuple3<String, Color, String>> activityGroups;
   // name, color, icon-/image-location
   final List<Tuple3<String, Color, String>> connectedExercises;
+  final Tuple2<List<DateTime>, List<int>> heartRate;
   final int burnedCalories;
   final Duration duration;
   final DateTime time;
@@ -22,9 +23,11 @@ class Activity extends Equatable {
     this.imagePath,
     this.activityGroups,
     this.connectedExercises,
+    this.heartRate,
     this.burnedCalories,
     this.duration,
-    this.time, this.color, {
+    this.time,
+    this.color, {
     this.distance = 0,
   });
 
@@ -35,6 +38,7 @@ class Activity extends Equatable {
         imagePath,
         activityGroups,
         connectedExercises,
+        heartRate,
         burnedCalories,
         duration,
         time,

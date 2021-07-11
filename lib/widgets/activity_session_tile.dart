@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:my_fitness_tracker/models/activity.dart';
 import 'package:my_fitness_tracker/utility.dart';
+import 'package:tuple/tuple.dart';
 
 class ActivitySessionTile extends StatelessWidget {
   final Activity activity;
@@ -40,8 +41,7 @@ class ActivitySessionTile extends StatelessWidget {
                     shape: BoxShape.circle, color: Color(activity.color)),
                 child: Container(
                   padding: EdgeInsets.all(8),
-                  child: Image.asset(
-                      "images/fire.png"),
+                  child: Image.asset("images/fire.png"),
                 ) //Image.asset(activity.imagePath),
                 ),
             Container(width: 10),
@@ -73,7 +73,8 @@ class ActivitySessionTile extends StatelessWidget {
                   Spacer(),
                   Wrap(
                     children: []
-                      ..addAll((activity.activityGroups
+                      ..addAll((List<Tuple3<String, Color, String>>.from(
+                              activity.activityGroups)
                             ..addAll(activity.connectedExercises))
                           .map(
                             (e) => Padding(
@@ -88,8 +89,7 @@ class ActivitySessionTile extends StatelessWidget {
                                 child: Container(
                                   padding: EdgeInsets.all(2),
                                   child: Image.asset("images/fire.png",
-                                      fit: BoxFit
-                                          .contain),
+                                      fit: BoxFit.contain),
                                 ), //Image.asset(e.item3, fit: BoxFit.contain),
                               ),
                             ),

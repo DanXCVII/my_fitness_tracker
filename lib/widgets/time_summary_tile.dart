@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+import 'package:tuple/tuple.dart';
+
 class TimeSummaryTile extends StatelessWidget {
   final double width;
   final DateTime time;
@@ -17,7 +19,7 @@ class TimeSummaryTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      height: 135,
+      height: 145,
       decoration: BoxDecoration(
         color: Color(0xff1D1D1D),
         borderRadius: BorderRadius.circular(10),
@@ -85,7 +87,7 @@ class DurationClock extends StatelessWidget {
         ClipPath(
           clipper: TimeClipper(time, duration),
           child: Container(
-            height: 90,
+            height: 100,
             width: 100,
             color: Color(0xff74E4D0),
           ),

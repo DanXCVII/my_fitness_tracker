@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_fitness_tracker/main.dart';
 
 class HeartRateSummaryShort extends StatelessWidget {
   final int minRate;
@@ -113,7 +114,7 @@ class HeartRateSummaryShort extends StatelessWidget {
                   .map<Widget>(
                     (e) => Padding(
                       padding: EdgeInsets.only(
-                          right: e != maxRate ? width / 14 : 4.5),
+                          right: e != maxRate ? (width - 16 * 2) / 16 : 4.5),
                       child: Column(
                         children: [
                           Text(
