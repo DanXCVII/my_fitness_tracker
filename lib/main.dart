@@ -283,7 +283,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding:
                     const EdgeInsets.fromLTRB(sidePadding, 8, sidePadding, 0),
                 child: ActivitySessionTile(
-                    Activity(
+                    ActivityFull(
                       "Strength Workout",
                       "legs, back",
                       "images/strength_icon.png",

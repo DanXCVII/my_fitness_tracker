@@ -5,7 +5,7 @@ import 'package:my_fitness_tracker/utility.dart';
 import 'package:tuple/tuple.dart';
 
 class ActivitySessionTile extends StatelessWidget {
-  final Activity activity;
+  final ActivityFull activity;
   final double width;
 
   const ActivitySessionTile(
